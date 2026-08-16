@@ -1,13 +1,20 @@
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { cloudflare } from "@cloudflare/vite-plugin";
 
 export default defineConfig({
-  nitro: {
-    preset: "node-server",
-  },
-
-  tanstackStart: {
-    server: {
-      entry: "server",
-    },
-  },
+  plugins: [
+    cloudflare({
+      viteEnvironment: {
+        name: "ssr",
+      },
+    }),
+    tanstackStart({
+      server: {
+        entry: "server",
+      },
+    }),
+    react(),
+  ],
 });
